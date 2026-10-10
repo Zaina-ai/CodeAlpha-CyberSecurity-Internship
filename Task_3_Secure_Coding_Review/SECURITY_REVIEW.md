@@ -25,5 +25,24 @@ Manual source-code review of `vulnerable_login.py`, comparison against `secure_l
 ## Limitations and next steps
 The secure example is educational. Real deployment would need persistent rate limiting across sessions, a vetted authentication framework, secure session management, audit logging, MFA, and secure password-reset flows. Do not deploy the vulnerable version.
 
+## Testing Results
+
+The applications were tested locally using Python and
+SQLite in Visual Studio Code.
+
+| Test | Observed Result | Status |
+|---|---|---|
+| Vulnerable login with valid credentials | Login successful | Passed |
+| SQL injection against vulnerable login | Authentication bypassed | Vulnerability confirmed |
+| Secure login with valid credentials | Login successful | Passed |
+| SQL injection against secure login | Login failed | Attack rejected |
+| Automated password-security tests | 3 tests passed | Passed |
+
+The SQL injection test demonstrated that the vulnerable
+application accepted malicious input without requiring
+the correct password. The secure implementation rejected
+the same input. All three automated password-security
+tests passed.
+
 ## Conclusion
 Four security issues were identified through manual review. The revised implementation demonstrates practical mitigations and the included tests check password hashing behavior.
